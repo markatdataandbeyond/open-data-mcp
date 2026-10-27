@@ -4,8 +4,6 @@ import json, os, re, subprocess, sys, glob, urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ACTORS = ["eu-company-verify","dk-statistics","scholar-search","pubmed-search","eu-tenders",
           "france-company-search","nordic-company-registry","clinical-trials","vin-decoder-recalls","weather-forecast"]
-# actors still private until scheduled publish (27/10 09:15); a 404 on these is reported, not failed
-PENDING = set(os.environ.get("PENDING_PRIVATE","").split(",")) - {""}
 results = []
 def check(name, ok, note=""):
     results.append((name, ok)); print(("PASS" if ok else "FAIL"), name, ("- "+note if note else ""))
@@ -40,11 +38,9 @@ for l in links:
     except urllib.error.HTTPError as e: code = e.code
     except Exception: code = 0
     if code != 200:
-        name = l.rstrip("/").split("/")[-1]
-        (pend if name in PENDING and code==404 else bad).append((l,code))
-for l,c in pend: print("  PENDING (privat endnu)", l, c)
+        bad.append((l,code))
 for l,c in bad: print("  BAD", l, c)
-check("b) alle README-links giver 200", len(links)>=10 and not bad, f"{len(links)} links, {len(pend)} pending")
+check("b) alle README-links giver 200", len(links)>=10 and not bad, f"{len(links)} links")
 
 # c) example configs valid JSON with placeholder
 cfgs = sorted(glob.glob(os.path.join(ROOT,"examples","*.json")))
@@ -76,5 +72,27 @@ named = set(re.findall(r"(?<![a-z])dataandbeyond/([a-z0-9-]+)", readme+allcfg))
 check("e3) actor-navne matcher de 10 på Apify", ok and named <= set(ACTORS), ",".join(sorted(named-set(ACTORS))))
 check("e4) LICENSE er MIT med Data and Beyond ApS", "MIT License" in read("LICENSE") and "Data and Beyond ApS" in read("LICENSE"))
 check("e5) server.json repo-URL peger på markatdataandbeyond", "github.com/markatdataandbeyond/open-data-mcp" in read("server.json"))
+# f) README prices match live Store pricing, all actors public, pubmed title fixed
+live = {}
+for a in ACTORS:
+    try:
+        d = json.load(urllib.request.urlopen(f"https://api.apify.com/v2/acts/dataandbeyond~{a}", timeout=20))["data"]
+        live[a] = d
+    except Exception: live[a] = None
+check("f1) alle 10 actors er offentlige", all(d and d.get("isPublic") for d in live.values()),
+      ",".join(a for a,d in live.items() if not (d and d.get("isPublic"))))
+def prices(d):
+    p = (d.get("pricingInfos") or [{}])[-1]
+    ev = (p.get("pricingPerEvent") or {}).get("actorChargeEvents") or {}
+    return sorted({f"{v['eventPriceUsd']:g}" for v in ev.values()})
+mism = []
+for a,d in live.items():
+    if not d: mism.append(a); continue
+    row = next((ln for ln in readme.splitlines() if f"apify.com/dataandbeyond/{a})" in ln), "")
+    cell = row.split("|")[-2] if row.count("|")>=4 else ""
+    if sorted(set(re.findall(r"\d+\.\d+", cell))) != prices(d): mism.append(a)
+check("f2) README-priser matcher live Store-priser", not mism, ",".join(mism))
+pt = (live.get("pubmed-search") or {}).get("title","")
+check("f3) pubmed-search har rettet titel", pt == "PubMed Search API: Articles with DOI, PMCID and Authors", pt)
 n_ok = sum(o for _,o in results); print(f"\n{n_ok}/{len(results)} passed")
 sys.exit(0 if n_ok==len(results) else 1)

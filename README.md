@@ -10,16 +10,16 @@ Prices are pay-per-event in USD, charged by Apify.
 
 | Actor | Data source | Price (USD) |
 |---|---|---|
-| [eu-company-verify](https://apify.com/dataandbeyond/eu-company-verify) | EU VAT check in VIES, plus LEI and parent companies from GLEIF | 0.004 per company found |
-| [dk-statistics](https://apify.com/dataandbeyond/dk-statistics) | Statistics Denmark (Statbank) tables, search in English or Danish | 0.003 per table + 0.002 per 100 rows |
-| [scholar-search](https://apify.com/dataandbeyond/scholar-search) | Academic papers from OpenAlex, Crossref and arXiv | 0.002 per paper |
-| [pubmed-search](https://apify.com/dataandbeyond/pubmed-search) | PubMed via NCBI E-utilities: PMID, DOI, PMCID, authors | 0.002 per article |
-| [eu-tenders](https://apify.com/dataandbeyond/eu-tenders) | EU public tenders from TED | 0.003 per tender |
-| [france-company-search](https://apify.com/dataandbeyond/france-company-search) | French companies (SIREN/SIRET) from Sirene | 0.003 per company |
-| [nordic-company-registry](https://apify.com/dataandbeyond/nordic-company-registry) | Company registries in Norway and Finland | 0.003 per company |
-| [clinical-trials](https://apify.com/dataandbeyond/clinical-trials) | ClinicalTrials.gov API v2 | 0.003 per trial |
-| [vin-decoder-recalls](https://apify.com/dataandbeyond/vin-decoder-recalls) | VIN decoding and NHTSA recalls | 0.001 per VIN, 0.003 with recall check |
-| [weather-forecast](https://apify.com/dataandbeyond/weather-forecast) | MET Norway forecasts for any place name or coordinates | 0.001 per forecast |
+| [eu-company-verify](https://apify.com/dataandbeyond/eu-company-verify) | EU VAT number check in VIES, plus LEI and parent companies from GLEIF, in one call | 0.004 per company verified |
+| [dk-statistics](https://apify.com/dataandbeyond/dk-statistics) | Statistics Denmark (Statbank): search tables, see variables, fetch rows as JSON | 0.003 per table described + 0.002 per 100 rows |
+| [scholar-search](https://apify.com/dataandbeyond/scholar-search) | Academic papers from OpenAlex, Crossref and arXiv, ranked by relevance and citations | 0.002 per paper |
+| [pubmed-search](https://apify.com/dataandbeyond/pubmed-search) | PubMed search with articles, DOI, PMCID and authors (NCBI E-utilities) | 0.002 per article |
+| [eu-tenders](https://apify.com/dataandbeyond/eu-tenders) | EU public procurement notices from TED: buyer, deadline, value and winners | 0.003 per tender notice |
+| [france-company-search](https://apify.com/dataandbeyond/france-company-search) | French companies by name, SIREN or SIRET (Sirene), with computed VAT number | 0.003 per company |
+| [nordic-company-registry](https://apify.com/dataandbeyond/nordic-company-registry) | Norwegian (Brønnøysund) and Finnish (PRH/YTJ) companies in one schema | 0.003 per company |
+| [clinical-trials](https://apify.com/dataandbeyond/clinical-trials) | ClinicalTrials.gov search by condition, intervention, sponsor, phase or NCT ID | 0.003 per trial |
+| [vin-decoder-recalls](https://apify.com/dataandbeyond/vin-decoder-recalls) | Bulk VIN decoding and NHTSA recall check | 0.001 per VIN decoded, 0.003 with recall check |
+| [weather-forecast](https://apify.com/dataandbeyond/weather-forecast) | MET Norway forecasts for a place name or coordinates, hourly or daily, up to 10 days | 0.001 per forecast |
 
 ## Setup
 
