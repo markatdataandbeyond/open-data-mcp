@@ -1,0 +1,24 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.markatdataandbeyond/open-data-mcp",
+  "description": "10 tools on official open data: EU VAT/LEI, TED tenders, PubMed, trials, registries, weather.",
+  "repository": {
+    "url": "https://github.com/markatdataandbeyond/open-data-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.apify.com/?tools=dataandbeyond/eu-company-verify,dataandbeyond/dk-statistics,dataandbeyond/scholar-search,dataandbeyond/pubmed-search,dataandbeyond/eu-tenders,dataandbeyond/france-company-search,dataandbeyond/nordic-company-registry,dataandbeyond/clinical-trials,dataandbeyond/vin-decoder-recalls,dataandbeyond/weather-forecast",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer token with your Apify API token: 'Bearer <APIFY_TOKEN>' (get it at https://console.apify.com/settings/integrations)",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
