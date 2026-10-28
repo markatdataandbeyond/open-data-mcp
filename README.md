@@ -2,7 +2,7 @@
 
 Ten Apify Actors from Data and Beyond ApS that wrap official open-data APIs. They can be called from Claude, Cursor, VS Code or any other MCP client through the [Apify MCP server](https://docs.apify.com/platform/integrations/mcp), or directly over the Apify API.
 
-This repository holds only documentation and client configuration. The Actor code runs on Apify.
+This repository holds documentation, client configuration, and a small stdio MCP proxy (Dockerfile + `glama.json`) for local or Glama use. The Actor code itself runs on Apify. The proxy lists the ten tools without a token; tool calls forward to `https://mcp.apify.com` with the caller's `APIFY_TOKEN`.
 
 ## The Actors
 
