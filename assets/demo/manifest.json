@@ -1,0 +1,135 @@
+{
+  "generatedAt": "2026-10-28T13:28:21Z",
+  "actors": {
+    "eu-company-verify": {
+      "direct": {
+        "actor": "eu-company-verify",
+        "itemCount": 1,
+        "highlights": [
+          {
+            "query": "Novo Nordisk A/S",
+            "legalName": "NOVO NORDISK A/S",
+            "lei": "549300DAQ1CVT6CXN342",
+            "verdict": "LEI_MATCH_BY_NAME"
+          }
+        ],
+        "runId": null
+      },
+      "mcpRunId": "h1ZZkQjXbJic0JJWh",
+      "files": {
+        "cast": {
+          "path": "assets/demo/eu-company-verify.cast",
+          "bytes": 2192,
+          "sha256": "db86fc430ea7b446"
+        },
+        "gif": {
+          "path": "assets/demo/eu-company-verify.gif",
+          "bytes": 223379,
+          "sha256": "bebd917844b5c03d"
+        },
+        "png": {
+          "path": "assets/demo/eu-company-verify.png",
+          "bytes": 77986,
+          "sha256": "10ebbdaa32ef1ceb"
+        }
+      },
+      "rawGithub": {
+        "gif": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/eu-company-verify.gif",
+        "png": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/eu-company-verify.png",
+        "cast": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/eu-company-verify.cast"
+      }
+    },
+    "vin-decoder-recalls": {
+      "direct": {
+        "actor": "vin-decoder-recalls",
+        "itemCount": 1,
+        "highlights": [
+          {
+            "vin": "1HGCM82633A004352",
+            "make": "HONDA",
+            "model": "Accord",
+            "modelYear": 2003,
+            "recallCount": 24
+          }
+        ],
+        "runId": null
+      },
+      "mcpRunId": "LqTMizQ8qjzcoF8bg",
+      "files": {
+        "cast": {
+          "path": "assets/demo/vin-decoder-recalls.cast",
+          "bytes": 2171,
+          "sha256": "160790adbf6e96f3"
+        },
+        "gif": {
+          "path": "assets/demo/vin-decoder-recalls.gif",
+          "bytes": 219378,
+          "sha256": "59bcc6905151dc1b"
+        },
+        "png": {
+          "path": "assets/demo/vin-decoder-recalls.png",
+          "bytes": 75355,
+          "sha256": "c05da16e9948d871"
+        }
+      },
+      "rawGithub": {
+        "gif": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/vin-decoder-recalls.gif",
+        "png": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/vin-decoder-recalls.png",
+        "cast": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/vin-decoder-recalls.cast"
+      }
+    },
+    "scholar-search": {
+      "direct": {
+        "actor": "scholar-search",
+        "itemCount": 3,
+        "highlights": [
+          {
+            "title": "Knowledge Graph Embedding by Translating on Hyperplanes",
+            "year": 2014,
+            "doi": "10.1609/aaai.v28i1.8870",
+            "citedByCount": 3906,
+            "query": "knowledge graph embedding"
+          },
+          {
+            "title": "Knowledge Graph Embedding: A Survey of Approaches and Applications",
+            "year": 2017,
+            "doi": "10.1109/tkde.2017.2754499",
+            "citedByCount": 2626,
+            "query": "knowledge graph embedding"
+          },
+          {
+            "title": "Convolutional 2D Knowledge Graph Embeddings",
+            "year": 2018,
+            "doi": "10.1609/aaai.v32i1.11573",
+            "citedByCount": 2485,
+            "query": "knowledge graph embedding"
+          }
+        ],
+        "runId": null
+      },
+      "mcpRunId": "gKz8mS98cL0BeK8E7",
+      "files": {
+        "cast": {
+          "path": "assets/demo/scholar-search.cast",
+          "bytes": 2546,
+          "sha256": "5d159ac336f227ac"
+        },
+        "gif": {
+          "path": "assets/demo/scholar-search.gif",
+          "bytes": 243870,
+          "sha256": "a12d870d2c6478ba"
+        },
+        "png": {
+          "path": "assets/demo/scholar-search.png",
+          "bytes": 78479,
+          "sha256": "3e47d1ba9c75e5cb"
+        }
+      },
+      "rawGithub": {
+        "gif": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/scholar-search.gif",
+        "png": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/scholar-search.png",
+        "cast": "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/scholar-search.cast"
+      }
+    }
+  }
+}

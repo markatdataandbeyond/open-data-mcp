@@ -1,0 +1,9 @@
+tools/list → 10 tools (token not required)
+Calling dataandbeyond--scholar-search via stdio proxy → mcp.apify.com …
+(APIFY_TOKEN is set in env; value never printed)
+MCP tool: dataandbeyond--scholar-search
+isError: false
+runId: gKz8mS98cL0BeK8E7
+status: SUCCEEDED  exitCode: 0
+datasetId: BgY1VdRVR1bzzopeK  itemCount: 3
+summary: SUCCEEDED in 3.438s. 3 items; 13 fields available.

@@ -1,0 +1,50 @@
+[{
+  "query": "Novo Nordisk A/S",
+  "inputType": "NAME",
+  "vat": null,
+  "lei": {
+    "lei": "549300DAQ1CVT6CXN342",
+    "legalName": "NOVO NORDISK A/S",
+    "status": "ACTIVE",
+    "legalForm": "ZRPO",
+    "jurisdiction": "DK",
+    "registeredAs": "24256790",
+    "registeredAt": "RA000170",
+    "legalAddress": {
+      "lines": [
+        "Novo Alle 1"
+      ],
+      "city": "Bagsværd",
+      "postalCode": "2880",
+      "country": "DK"
+    },
+    "registrationStatus": "ISSUED",
+    "nextRenewalDate": "2027-02-07T12:31:00Z",
+    "lastUpdate": "2025-12-22T14:18:00Z"
+  },
+  "directParent": null,
+  "ultimateParent": null,
+  "otherLeiMatches": [
+    {
+      "lei": "254900HLPLIRDQPWL696",
+      "legalName": "NOVO NORDISK A/S (B SHARES) ADRHEDGED",
+      "country": "US"
+    },
+    {
+      "lei": "5493008LMR0N66WCKM02",
+      "legalName": "VELFÆRDSFONDEN FOR NOVO NORDISK A/S",
+      "country": "DK"
+    },
+    {
+      "lei": "894500G05T7MXFP5E425",
+      "legalName": "NOVO NORDISK REGION EUROPE A/S",
+      "country": "DK"
+    }
+  ],
+  "verdict": "LEI_MATCH_BY_NAME",
+  "checkedAt": "2026-10-28T13:27:35.968Z",
+  "sources": [
+    "GLEIF LEI data, CC0 1.0 (gleif.org)",
+    "EU VIES (ec.europa.eu/taxation_customs/vies)"
+  ]
+}]

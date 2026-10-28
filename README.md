@@ -44,6 +44,25 @@ curl -X POST "https://api.apify.com/v2/acts/dataandbeyond~weather-forecast/run-s
   -d '{"locations": ["Copenhagen"]}'
 ```
 
+
+## Demo
+
+Short terminal recordings of three Actors — direct Apify API and via this repo's MCP stdio proxy. Token values are never printed (`$APIFY_TOKEN` only).
+
+| Actor | GIF | Screenshot |
+|---|---|---|
+| [eu-company-verify](https://apify.com/dataandbeyond/eu-company-verify) | ![eu-company-verify demo](assets/demo/eu-company-verify.gif) | [PNG](assets/demo/eu-company-verify.png) |
+| [vin-decoder-recalls](https://apify.com/dataandbeyond/vin-decoder-recalls) | ![vin-decoder-recalls demo](assets/demo/vin-decoder-recalls.gif) | [PNG](assets/demo/vin-decoder-recalls.png) |
+| [scholar-search](https://apify.com/dataandbeyond/scholar-search) | ![scholar-search demo](assets/demo/scholar-search.gif) | [PNG](assets/demo/scholar-search.png) |
+
+Raw GitHub URLs (for Store READMEs):
+
+- `https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/eu-company-verify.gif`
+- `https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/vin-decoder-recalls.gif`
+- `https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/scholar-search.gif`
+
+Replay a cast locally with [asciinema](https://asciinema.org/): `asciinema play assets/demo/eu-company-verify.cast`. Re-record with `APIFY_TOKEN=… bash scripts/record-demos.sh` (never commit the token).
+
 ## Notes
 
 - On Apify's free plan, run one Actor at a time. Several parallel runs can fail with HTTP 402.

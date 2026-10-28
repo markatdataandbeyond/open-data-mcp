@@ -1,0 +1,75 @@
+[{
+  "query": "knowledge graph embedding",
+  "title": "Knowledge Graph Embedding by Translating on Hyperplanes",
+  "doi": "10.1609/aaai.v28i1.8870",
+  "year": 2014,
+  "authors": [
+    "Zhen Wang",
+    "Jianwen Zhang",
+    "Jianlin Feng",
+    "Zheng Chen"
+  ],
+  "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+  "type": "conference-paper",
+  "citedByCount": 3906,
+  "url": "https://doi.org/10.1609/aaai.v28i1.8870",
+  "pdfUrl": "https://doi.org/10.1609/aaai.v28i1.8870",
+  "isOpenAccess": true,
+  "license": "OpenAlex CC0 1.0",
+  "foundIn": [
+    "openalex"
+  ],
+  "otherDois": [],
+  "sourcesFailed": [],
+  "warnings": []
+},
+{
+  "query": "knowledge graph embedding",
+  "title": "Knowledge Graph Embedding: A Survey of Approaches and Applications",
+  "doi": "10.1109/tkde.2017.2754499",
+  "year": 2017,
+  "authors": [
+    "Quan Wang",
+    "Zhendong Mao",
+    "Bin Wang",
+    "Li Guo"
+  ],
+  "venue": "IEEE Transactions on Knowledge and Data Engineering",
+  "type": "article",
+  "citedByCount": 2626,
+  "url": "https://doi.org/10.1109/tkde.2017.2754499",
+  "pdfUrl": null,
+  "isOpenAccess": false,
+  "license": "OpenAlex CC0 1.0",
+  "foundIn": [
+    "openalex"
+  ],
+  "otherDois": [],
+  "sourcesFailed": [],
+  "warnings": []
+},
+{
+  "query": "knowledge graph embedding",
+  "title": "Convolutional 2D Knowledge Graph Embeddings",
+  "doi": "10.1609/aaai.v32i1.11573",
+  "year": 2018,
+  "authors": [
+    "Tim Dettmers",
+    "Pasquale Minervini",
+    "Pontus Stenetorp",
+    "Sebastian Riedel"
+  ],
+  "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+  "type": "conference-paper",
+  "citedByCount": 2485,
+  "url": "https://doi.org/10.1609/aaai.v32i1.11573",
+  "pdfUrl": "https://doi.org/10.1609/aaai.v32i1.11573",
+  "isOpenAccess": true,
+  "license": "OpenAlex CC0 1.0",
+  "foundIn": [
+    "openalex"
+  ],
+  "otherDois": [],
+  "sourcesFailed": [],
+  "warnings": []
+}]

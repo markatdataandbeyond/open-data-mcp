@@ -1,0 +1,9 @@
+tools/list → 10 tools (token not required)
+Calling dataandbeyond--vin-decoder-recalls via stdio proxy → mcp.apify.com …
+(APIFY_TOKEN is set in env; value never printed)
+MCP tool: dataandbeyond--vin-decoder-recalls
+isError: false
+runId: LqTMizQ8qjzcoF8bg
+status: SUCCEEDED  exitCode: 0
+datasetId: JoscJdo7W6tbcGJ6N  itemCount: 1
+summary: SUCCEEDED in 1.245s. 1 item; 44 fields available.

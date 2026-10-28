@@ -1,0 +1,9 @@
+tools/list → 10 tools (token not required)
+Calling dataandbeyond--eu-company-verify via stdio proxy → mcp.apify.com …
+(APIFY_TOKEN is set in env; value never printed)
+MCP tool: dataandbeyond--eu-company-verify
+isError: false
+runId: h1ZZkQjXbJic0JJWh
+status: SUCCEEDED  exitCode: 0
+datasetId: HAYQgdyVtdwgezHNg  itemCount: 1
+summary: SUCCEEDED in 1.988s. 1 item; 25 fields available.
