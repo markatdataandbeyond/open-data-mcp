@@ -94,5 +94,55 @@ for a,d in live.items():
 check("f2) README-priser matcher live Store-priser", not mism, ",".join(mism))
 pt = (live.get("pubmed-search") or {}).get("title","")
 check("f3) pubmed-search har rettet titel", pt == "PubMed Search API: Articles with DOI, PMCID and Authors", pt)
+
+# g) Cline marketplace logo (assets/logo-400.png)
+import struct
+LOGO_REL = "assets/logo-400.png"
+LOGO_PATH = os.path.join(ROOT, LOGO_REL)
+RAW_LOGO = "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/logo-400.png"
+logo_exists = os.path.isfile(LOGO_PATH)
+check("g1) assets/logo-400.png findes", logo_exists)
+png_ok, wh, size_b = False, None, 0
+if logo_exists:
+    raw = open(LOGO_PATH, "rb").read()
+    size_b = len(raw)
+    png_ok = raw[:8] == b"\x89PNG\r\n\x1a\n"
+    if png_ok and len(raw) >= 24:
+        wh = struct.unpack(">II", raw[16:24])
+check("g2) logo er 400x400 PNG (magic + IHDR)", png_ok and wh == (400, 400), str(wh))
+check("g3) logo-filstørrelse acceptabel til GitHub-issue (1KB–500KB)", 1024 <= size_b <= 500*1024, str(size_b))
+
+# Live raw URL (must be 200 + image/png after push). Set SKIP_RAW_LOGO=1 to run pre-push.
+skip_raw = os.environ.get("SKIP_RAW_LOGO") == "1"
+if skip_raw:
+    check("g4) raw-URL HTTP 200 + image/png (SKIPPED pre-push)", True, "SKIP_RAW_LOGO=1")
+else:
+    try:
+        req = urllib.request.Request(RAW_LOGO, headers={"User-Agent": "Mozilla/5.0 repo-test"})
+        with urllib.request.urlopen(req, timeout=25) as r:
+            code = r.status
+            ctype = (r.headers.get("Content-Type") or "").split(";")[0].strip().lower()
+            body = r.read(16)
+        check("g4) raw-URL HTTP 200 + image/png", code == 200 and ctype == "image/png" and body[:4] == b"\x89PNG",
+              f"code={code} ctype={ctype}")
+    except Exception as e:
+        check("g4) raw-URL HTTP 200 + image/png", False, type(e).__name__)
+
+# Edge cases
+fake_raw = "https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/logo-DOES-NOT-EXIST.png"
+fake_code = 0
+try:
+    urllib.request.urlopen(urllib.request.Request(fake_raw, headers={"User-Agent": "Mozilla/5.0 repo-test"}), timeout=20)
+    fake_code = 200
+except urllib.error.HTTPError as e:
+    fake_code = e.code
+except Exception:
+    fake_code = 0
+check("g5) kant: manglende logo-raw giver ikke 200 (404/ikke-fundet)", fake_code != 200, str(fake_code))
+# Wrong format would fail: a renamed .png that is not PNG — ensure our file is not JPEG magic
+jpeg_magic = open(LOGO_PATH, "rb").read(3) == b"\xff\xd8\xff" if logo_exists else True
+check("g6) kant: logo er ikke JPEG forklædt som PNG", logo_exists and not jpeg_magic)
+check("g7) kant: forkert dimension fanget (ikke 0x0 / ikke 1x1)", wh == (400, 400))
+
 n_ok = sum(o for _,o in results); print(f"\n{n_ok}/{len(results)} passed")
 sys.exit(0 if n_ok==len(results) else 1)
