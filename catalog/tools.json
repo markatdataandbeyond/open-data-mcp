@@ -1,7 +1,7 @@
 [
   {
     "name": "dataandbeyond--eu-company-verify",
-    "description": "This tool calls the Actor \"dataandbeyond/eu-company-verify\" and retrieves its output results.\nActor description: Check an EU VAT number in VIES and find the company's LEI and parent companies in GLEIF, in one call. Also accepts an LEI or a company name.",
+    "description": "Check an EU VAT number in VIES and find the company LEI and parent companies in GLEIF, in one call. Also accepts an LEI or a company name. Calls official VIES and GLEIF APIs directly.",
     "inputSchema": {
       "title": "EU Company Verify",
       "type": "object",
@@ -56,21 +56,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--eu-company-verify/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/eu-company-verify",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--dk-statistics",
-    "description": "This tool calls the Actor \"dataandbeyond/dk-statistics\" and retrieves its output results.\nActor description: Search Statistics Denmark (Statbank) tables by keyword, see their variables, and fetch rows as JSON. Official data, CC BY 4.0.",
+    "description": "Search Statistics Denmark (Statbank) tables by keyword, see their variables, and fetch rows as JSON. Official data, CC BY 4.0. Calls api.statbank.dk directly.",
     "inputSchema": {
       "title": "Denmark Statistics",
       "type": "object",
@@ -115,21 +115,21 @@
         },
         "filters": {
           "title": "Filters (data mode)",
-          "description": "Variable code -> list of value codes, '*' for all, '(latest)' for latest period. Omitted variables use totals/latest.\nExample values: {\"OMR\u00c5DE\":[\"*\"]}",
+          "description": "Variable code -> list of value codes, '*' for all, '(latest)' for latest period. Omitted variables use totals/latest.\nExample values: {\"OMRÅDE\":[\"*\"]}",
           "type": "object",
           "default": {
-            "OMR\u00c5DE": [
+            "OMRÅDE": [
               "*"
             ]
           },
           "prefill": {
-            "OMR\u00c5DE": [
+            "OMRÅDE": [
               "*"
             ]
           },
           "examples": [
             {
-              "OMR\u00c5DE": [
+              "OMRÅDE": [
                 "*"
               ]
             }
@@ -163,21 +163,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--dk-statistics/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/dk-statistics",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--scholar-search",
-    "description": "This tool calls the Actor \"dataandbeyond/scholar-search\" and retrieves its output results.\nActor description: Search academic papers in OpenAlex, Crossref and arXiv. Ranked by relevance and citations, reprints merged.",
+    "description": "Academic papers from Crossref and arXiv (and OpenAlex if OPENALEX_API_KEY is set), ranked by relevance and citations. Calls the official APIs directly.",
     "inputSchema": {
       "title": "Scholar Search: Crossref + arXiv (+OpenAlex) Papers API",
       "type": "object",
@@ -241,21 +241,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--scholar-search/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/scholar-search",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--pubmed-search",
-    "description": "This tool calls the Actor \"dataandbeyond/pubmed-search\" and retrieves its output results.\nActor description: Search PubMed with normal PubMed query syntax and get PMID, title, journal, date, authors, DOI and PMCID as JSON. Uses NCBI E-utilities.",
+    "description": "PubMed search with articles, DOI, PMCID and authors via NCBI E-utilities. Optional NCBI_API_KEY for higher rate limits.",
     "inputSchema": {
       "title": "PubMed Search API: Articles, DOI, PMCID, MeSH-ready",
       "type": "object",
@@ -312,21 +312,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--pubmed-search/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/pubmed-search",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--eu-tenders",
-    "description": "This tool calls the Actor \"dataandbeyond/eu-tenders\" and retrieves its output results.\nActor description: Search EU public procurement notices in TED by keyword, buyer country, CPV code and date. Flat records with buyer, deadline, value and winners.",
+    "description": "EU public procurement notices from TED: buyer, deadline, value and winners. Calls the official TED API v3 directly.",
     "inputSchema": {
       "title": "EU Tenders API (TED): Public Procurement Search & Monitor",
       "type": "object",
@@ -422,21 +422,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--eu-tenders/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/eu-tenders",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--france-company-search",
-    "description": "This tool calls the Actor \"dataandbeyond/france-company-search\" and retrieves its output results.\nActor description: Look up French companies by name, SIREN or SIRET in the official Recherche d'entreprises API. Legal form, NAF code, status, head office and computed VAT number.",
+    "description": "French companies by name, SIREN or SIRET (Sirene / Recherche d'entreprises), with computed VAT number. Calls the official API directly.",
     "inputSchema": {
       "title": "France Company Search: SIREN/SIRET, NAF, VAT (official API)",
       "type": "object",
@@ -497,21 +497,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--france-company-search/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/france-company-search",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--nordic-company-registry",
-    "description": "This tool calls the Actor \"dataandbeyond/nordic-company-registry\" and retrieves its output results.\nActor description: Look up Norwegian (Br\u00f8nn\u00f8ysund) and Finnish (PRH/YTJ) companies by name or registry ID, with one schema for both countries.",
+    "description": "Norwegian (Brønnøysund) and Finnish (PRH/YTJ) companies in one schema. Calls the official open APIs directly.",
     "inputSchema": {
       "title": "Nordic Company Registry: Norway + Finland in one call",
       "type": "object",
@@ -574,21 +574,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--nordic-company-registry/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/nordic-company-registry",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--clinical-trials",
-    "description": "This tool calls the Actor \"dataandbeyond/clinical-trials\" and retrieves its output results.\nActor description: Search ClinicalTrials.gov by condition, intervention, sponsor, location, phase, status or NCT ID. One flat record per trial.",
+    "description": "ClinicalTrials.gov search by condition, intervention, sponsor, phase or NCT ID. Calls the official API v2 directly.",
     "inputSchema": {
       "title": "Clinical Trials Search API (ClinicalTrials.gov v2)",
       "type": "object",
@@ -672,21 +672,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--clinical-trials/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/clinical-trials",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--vin-decoder-recalls",
-    "description": "This tool calls the Actor \"dataandbeyond/vin-decoder-recalls\" and retrieves its output results.\nActor description: Batch-check VINs against NHTSA safety recalls: decode each VIN and flag recalls, do-not-drive and park-outside warnings. For US used-car dealers and fleets.",
+    "description": "Bulk VIN decoding and NHTSA recall check. Calls NHTSA vPIC and Recalls APIs directly (U.S. public domain).",
     "inputSchema": {
       "title": "VIN Decoder + Safety Recalls (NHTSA) - Batch API",
       "type": "object",
@@ -733,21 +733,21 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--vin-decoder-recalls/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/vin-decoder-recalls",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   },
   {
     "name": "dataandbeyond--weather-forecast",
-    "description": "This tool calls the Actor \"dataandbeyond/weather-forecast\" and retrieves its output results.\nActor description: Weather forecast for a place name or coordinates from MET Norway: daily summaries or hourly values, up to 10 days.",
+    "description": "MET Norway forecasts for a place name or coordinates, hourly or daily, up to 10 days. Calls api.met.no (and Nominatim for geocoding) directly.",
     "inputSchema": {
       "title": "Weather Forecast API (MET Norway): Daily or Hourly, Worldwide",
       "type": "object",
@@ -804,15 +804,15 @@
           "minimum": 0,
           "maximum": 45,
           "default": 30,
-          "description": "Max seconds (0\u201345, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
+          "description": "Max seconds (0–45, default 30) to cap the wait for the Actor run to reach terminal state. For long-running Actors the response returns at the cap with the current run status; follow `nextStep` to poll via get-actor-run. Set to 0 to fire-and-forget."
         }
       },
       "$id": "https://apify.com/mcp/dataandbeyond--weather-forecast/schema.json"
     },
     "annotations": {
       "title": "dataandbeyond/weather-forecast",
-      "readOnlyHint": false,
-      "destructiveHint": true,
+      "readOnlyHint": true,
+      "destructiveHint": false,
       "openWorldHint": true
     }
   }

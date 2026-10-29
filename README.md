@@ -1,51 +1,70 @@
 # open-data-mcp
 
 [![markatdataandbeyond/open-data-mcp MCP server](https://glama.ai/mcp/servers/markatdataandbeyond/open-data-mcp/badges/score.svg)](https://glama.ai/mcp/servers/markatdataandbeyond/open-data-mcp)
+[![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/markatdataandbeyond/open-data-mcp)
 
-Ten Apify Actors from Data and Beyond ApS that wrap official open-data APIs. They can be called from Claude, Cursor, VS Code or any other MCP client through the [Apify MCP server](https://docs.apify.com/platform/integrations/mcp), or directly over the Apify API.
+Ten tools I built to get facts from official open data, not guesses. This repository is an **open-source MCP server** (stdio). Each tool calls the official source API directly from your machine — no Apify token required for the local server.
 
-This repository holds documentation, client configuration, and a small stdio MCP proxy (Dockerfile + `glama.json`) for local or Glama use. The Actor code itself runs on Apify. The proxy lists the ten tools without a token; tool calls forward to `https://mcp.apify.com` with the caller's `APIFY_TOKEN`.
+Optional env keys (never commit them):
 
-## The Actors
+- `OPENALEX_API_KEY` — enables OpenAlex in scholar-search (free key from openalex.org)
+- `NCBI_API_KEY` — higher PubMed rate limits (free from NCBI)
 
-Prices are pay-per-event in USD, charged by Apify.
+## Tools
 
-| Actor | Data source | Price (USD) |
+| Tool | Official source |
+|---|---|
+| `dataandbeyond--eu-company-verify` | EU VIES + GLEIF |
+| `dataandbeyond--dk-statistics` | Statistics Denmark (Statbank) |
+| `dataandbeyond--scholar-search` | Crossref, arXiv (+ OpenAlex with key) |
+| `dataandbeyond--pubmed-search` | NCBI PubMed E-utilities |
+| `dataandbeyond--eu-tenders` | TED API v3 |
+| `dataandbeyond--france-company-search` | Recherche d'entreprises (INSEE/DINUM) |
+| `dataandbeyond--nordic-company-registry` | Brønnøysund + PRH/YTJ |
+| `dataandbeyond--clinical-trials` | ClinicalTrials.gov API v2 |
+| `dataandbeyond--vin-decoder-recalls` | NHTSA vPIC + Recalls |
+| `dataandbeyond--weather-forecast` | MET Norway (+ Nominatim geocode) |
+
+## Run locally
+
+```bash
+npm ci
+node src/index.js
+```
+
+Point your MCP client at the stdio command `node /path/to/open-data-mcp/src/index.js` (or the Docker image built from the Dockerfile in this repo). `tools/list` works with no environment variables.
+
+Docker:
+
+```bash
+docker build -t open-data-mcp .
+docker run --rm -i open-data-mcp
+```
+
+## Hosted version
+
+The same ten tools are also available as **pay-per-event Apify Actors** if you want a hosted endpoint instead of running the server yourself:
+
+| Actor | Store | Price (USD) |
 |---|---|---|
-| [eu-company-verify](https://apify.com/dataandbeyond/eu-company-verify) | EU VAT number check in VIES, plus LEI and parent companies from GLEIF, in one call | 0.004 per company verified |
-| [dk-statistics](https://apify.com/dataandbeyond/dk-statistics) | Statistics Denmark (Statbank): search tables, see variables, fetch rows as JSON | 0.003 per table described + 0.002 per 100 rows |
-| [scholar-search](https://apify.com/dataandbeyond/scholar-search) | Academic papers from OpenAlex, Crossref and arXiv, ranked by relevance and citations | 0.002 per paper |
-| [pubmed-search](https://apify.com/dataandbeyond/pubmed-search) | PubMed search with articles, DOI, PMCID and authors (NCBI E-utilities) | 0.002 per article |
-| [eu-tenders](https://apify.com/dataandbeyond/eu-tenders) | EU public procurement notices from TED: buyer, deadline, value and winners | 0.003 per tender notice |
-| [france-company-search](https://apify.com/dataandbeyond/france-company-search) | French companies by name, SIREN or SIRET (Sirene), with computed VAT number | 0.003 per company |
-| [nordic-company-registry](https://apify.com/dataandbeyond/nordic-company-registry) | Norwegian (Brønnøysund) and Finnish (PRH/YTJ) companies in one schema | 0.003 per company |
-| [clinical-trials](https://apify.com/dataandbeyond/clinical-trials) | ClinicalTrials.gov search by condition, intervention, sponsor, phase or NCT ID | 0.003 per trial |
-| [vin-decoder-recalls](https://apify.com/dataandbeyond/vin-decoder-recalls) | Bulk VIN decoding and NHTSA recall check | 0.001 per VIN decoded, 0.003 with recall check |
-| [weather-forecast](https://apify.com/dataandbeyond/weather-forecast) | MET Norway forecasts for a place name or coordinates, hourly or daily, up to 10 days | 0.001 per forecast |
+| [eu-company-verify](https://apify.com/dataandbeyond/eu-company-verify) | VIES + GLEIF | 0.004 per company verified |
+| [dk-statistics](https://apify.com/dataandbeyond/dk-statistics) | Statbank | 0.003 per table described + 0.002 per 100 rows |
+| [scholar-search](https://apify.com/dataandbeyond/scholar-search) | papers | 0.002 per paper |
+| [pubmed-search](https://apify.com/dataandbeyond/pubmed-search) | PubMed | 0.002 per article |
+| [eu-tenders](https://apify.com/dataandbeyond/eu-tenders) | TED | 0.003 per tender notice |
+| [france-company-search](https://apify.com/dataandbeyond/france-company-search) | Sirene | 0.003 per company |
+| [nordic-company-registry](https://apify.com/dataandbeyond/nordic-company-registry) | NO+FI | 0.003 per company |
+| [clinical-trials](https://apify.com/dataandbeyond/clinical-trials) | ClinicalTrials.gov | 0.003 per trial |
+| [vin-decoder-recalls](https://apify.com/dataandbeyond/vin-decoder-recalls) | NHTSA | 0.001 per VIN / 0.003 with recalls |
+| [weather-forecast](https://apify.com/dataandbeyond/weather-forecast) | MET Norway | 0.001 per forecast |
 
-## Setup
-
-You need an Apify account and an API token from https://console.apify.com/settings/integrations. Replace `<APIFY_TOKEN>` in the config with your token, and keep the token out of version control.
-
-- Cursor: [examples/cursor.json](examples/cursor.json) goes in `.cursor/mcp.json` or `~/.cursor/mcp.json`.
-- Claude Desktop: [examples/claude-desktop.json](examples/claude-desktop.json) uses `mcp-remote` to connect to the remote server.
-- VS Code: [examples/vscode.json](examples/vscode.json) goes in `.vscode/mcp.json`.
-- Other clients: point a streamable HTTP connection at the URL below with the header `Authorization: Bearer <APIFY_TOKEN>`.
+Hosted MCP URL (requires your Apify token):
 
 ```
 https://mcp.apify.com/?tools=dataandbeyond/eu-company-verify,dataandbeyond/dk-statistics,dataandbeyond/scholar-search,dataandbeyond/pubmed-search,dataandbeyond/eu-tenders,dataandbeyond/france-company-search,dataandbeyond/nordic-company-registry,dataandbeyond/clinical-trials,dataandbeyond/vin-decoder-recalls,dataandbeyond/weather-forecast
 ```
 
-To load fewer tools, remove Actors from the `tools=` list.
-
-## Without MCP
-
-```bash
-curl -X POST "https://api.apify.com/v2/acts/dataandbeyond~weather-forecast/run-sync-get-dataset-items" \
-  -H "Authorization: Bearer $APIFY_TOKEN" -H "Content-Type: application/json" \
-  -d '{"locations": ["Copenhagen"]}'
-```
-
+Client config examples for the hosted path: [examples/cursor.json](examples/cursor.json), [examples/claude-desktop.json](examples/claude-desktop.json), [examples/vscode.json](examples/vscode.json).
 
 ## Demo
 
@@ -65,11 +84,6 @@ Raw GitHub URLs (for Store READMEs):
 
 Replay a cast locally with [asciinema](https://asciinema.org/): `asciinema play assets/demo/eu-company-verify.cast`. Re-record with `APIFY_TOKEN=… bash scripts/record-demos.sh` (never commit the token).
 
-## Notes
-
-- On Apify's free plan, run one Actor at a time. Several parallel runs can fail with HTTP 402.
-- Each Actor's Store page lists its data source and the source's license.
-
 ## License
 
-The documentation and configuration in this repository are MIT licensed. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

@@ -18,9 +18,6 @@ export const ACTORS = [
   'weather-forecast',
 ];
 
-export const TOOLS_QUERY = ACTORS.map((a) => `dataandbeyond/${a}`).join(',');
-export const UPSTREAM_URL = `https://mcp.apify.com/?tools=${TOOLS_QUERY}`;
-
 export function actorToolName(actor) {
   return `dataandbeyond--${actor}`;
 }
@@ -39,13 +36,4 @@ export function loadTools() {
     }
   }
   return tools;
-}
-
-export function missingTokenMessage() {
-  return (
-    'APIFY_TOKEN is required to call tools. ' +
-    'Set environment variable APIFY_TOKEN to your Apify API token ' +
-    '(https://console.apify.com/settings/integrations). ' +
-    'tools/list works without a token; only tools/call needs one.'
-  );
 }

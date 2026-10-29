@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
- * Stdio MCP proxy for open-data-mcp.
- * - initialize + tools/list: no APIFY_TOKEN required (Glama introspection)
- * - tools/call: forwards to mcp.apify.com with APIFY_TOKEN from env
+ * open-data-mcp — local stdio MCP server.
+ * Tools call official open-data APIs directly (no Apify required).
+ * Optional env: OPENALEX_API_KEY, NCBI_API_KEY.
+ * tools/list works with no env keys.
  */
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -10,8 +11,8 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { loadTools, missingTokenMessage, actorToolName, ACTORS } from './tools.js';
-import { callUpstreamTool } from './forward.js';
+import { loadTools, actorToolName, ACTORS } from './tools.js';
+import { runTool } from './lib/runTool.js';
 
 const tools = loadTools();
 const toolByName = new Map(tools.map((t) => [t.name, t]));
@@ -19,7 +20,7 @@ const toolByName = new Map(tools.map((t) => [t.name, t]));
 const server = new Server(
   {
     name: 'open-data-mcp',
-    version: '1.0.0',
+    version: '1.1.0',
   },
   {
     capabilities: { tools: {} },
@@ -42,40 +43,17 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const known = ACTORS.map(actorToolName).join(', ');
     return {
       isError: true,
-      content: [
-        {
-          type: 'text',
-          text: `Unknown tool "${name}". Known tools: ${known}`,
-        },
-      ],
-    };
-  }
-
-  const token = process.env.APIFY_TOKEN;
-  if (!token || !String(token).trim()) {
-    return {
-      isError: true,
-      content: [{ type: 'text', text: missingTokenMessage() }],
+      content: [{ type: 'text', text: `Unknown tool "${name}". Known tools: ${known}` }],
     };
   }
 
   try {
-    const timeoutMs = Number(process.env.OPEN_DATA_MCP_TIMEOUT_MS || 120000);
-    const result = await callUpstreamTool({ name, args, token, timeoutMs });
-    if (result?.content) return result;
-    return {
-      content: [{ type: 'text', text: JSON.stringify(result ?? null) }],
-    };
+    return await runTool(name, args);
   } catch (e) {
-    const code = e?.code || 'UPSTREAM_ERROR';
+    const code = e?.code || (e?.name === 'UpstreamError' ? 'UPSTREAM_ERROR' : 'TOOL_ERROR');
     return {
       isError: true,
-      content: [
-        {
-          type: 'text',
-          text: `[${code}] ${e?.message || String(e)}`,
-        },
-      ],
+      content: [{ type: 'text', text: `[${code}] ${e?.message || String(e)}` }],
     };
   }
 });
@@ -86,7 +64,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  // Never print env secrets
   console.error(err?.message || String(err));
   process.exit(1);
 });
