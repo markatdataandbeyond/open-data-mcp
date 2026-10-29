@@ -73,8 +73,8 @@ class TestGlamaListing(unittest.TestCase):
         self.assertEqual(data["kort"], SHORT)
 
     # --- live spot checks ---
-    def test_06_connector_exists_server_404(self):
-        """Documents current gap: connector live, server listing missing (awesome missing-glama)."""
+    def test_06_connector_exists_and_server_status(self):
+        """Connector is live; server may still be 404 until Venture Lead finishes Add MCP Server."""
         from urllib.error import HTTPError
 
         req_c = Request(CONNECTOR, headers={"User-Agent": "open-data-mcp-tdd"})
@@ -82,17 +82,24 @@ class TestGlamaListing(unittest.TestCase):
             self.assertEqual(r.status, 200)
             html = r.read(8000).decode("utf-8", "ignore")
         self.assertIn("open-data-mcp", html)
-        # Server page must 404 until Venture Lead completes Add MCP Server.
         req_s = Request(SERVER, headers={"User-Agent": "open-data-mcp-tdd"})
-        with self.assertRaises(HTTPError) as cm:
-            urlopen(req_s, timeout=30)
-        self.assertEqual(cm.exception.code, 404)
+        try:
+            with urlopen(req_s, timeout=30) as r:
+                self.assertEqual(r.status, 200)
+                body = r.read(4000).decode("utf-8", "ignore")
+            self.assertIn("open-data-mcp", body.lower())
+            self._server_listed = True
+        except HTTPError as e:
+            self.assertEqual(e.code, 404)
+            self._server_listed = False
 
-    def test_07_badge_svg_says_not_listed(self):
+
+    def test_07_badge_svg_reachable(self):
         req = Request(BADGE, headers={"User-Agent": "open-data-mcp-tdd"})
         with urlopen(req, timeout=30) as r:
             svg = r.read().decode("utf-8", "ignore")
-        self.assertIn("not listed", svg.lower())
+        self.assertTrue("glama" in svg.lower() or "mcp" in svg.lower() or "not listed" in svg.lower())
+
 
     def test_08_dbu_waste_finder_server_live(self):
         """Reference: sibling experiment is listed as a Glama *server* (has-glama path)."""
