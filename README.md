@@ -68,21 +68,15 @@ Client config examples for the hosted path: [examples/cursor.json](examples/curs
 
 ## Demo
 
-Short terminal recordings of three Actors — direct Apify API and via this repo's MCP stdio proxy. Token values are never printed (`$APIFY_TOKEN` only).
+Short terminal recordings of the local stdio server calling official open data APIs. No API keys required for these demos.
 
-| Actor | GIF | Screenshot |
-|---|---|---|
-| [eu-company-verify](https://apify.com/dataandbeyond/eu-company-verify) | ![eu-company-verify demo](assets/demo/eu-company-verify.gif) | [PNG](assets/demo/eu-company-verify.png) |
-| [vin-decoder-recalls](https://apify.com/dataandbeyond/vin-decoder-recalls) | ![vin-decoder-recalls demo](assets/demo/vin-decoder-recalls.gif) | [PNG](assets/demo/vin-decoder-recalls.png) |
-| [scholar-search](https://apify.com/dataandbeyond/scholar-search) | ![scholar-search demo](assets/demo/scholar-search.gif) | [PNG](assets/demo/scholar-search.png) |
+| Tool | What you see | GIF | Screenshot |
+|---|---|---|---|
+| `eu-company-verify` | EU VIES check for DK24256790 → NOVO NORDISK A/S | ![eu-company-verify demo](assets/demo/eu-company-verify.gif) | [PNG](assets/demo/eu-company-verify.png) |
+| `vin-decoder-recalls` | NHTSA decode of a Honda Accord VIN + recall count | ![vin-decoder-recalls demo](assets/demo/vin-decoder-recalls.gif) | [PNG](assets/demo/vin-decoder-recalls.png) |
+| `scholar-search` | Crossref/arXiv papers for "knowledge graph embedding" | ![scholar-search demo](assets/demo/scholar-search.gif) | [PNG](assets/demo/scholar-search.png) |
 
-Raw GitHub URLs (for Store READMEs):
-
-- `https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/eu-company-verify.gif`
-- `https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/vin-decoder-recalls.gif`
-- `https://raw.githubusercontent.com/markatdataandbeyond/open-data-mcp/main/assets/demo/scholar-search.gif`
-
-Replay a cast locally with [asciinema](https://asciinema.org/): `asciinema play assets/demo/eu-company-verify.cast`. Re-record with `APIFY_TOKEN=… bash scripts/record-demos.sh` (never commit the token).
+Replay a cast with [asciinema](https://asciinema.org/): `asciinema play assets/demo/eu-company-verify.cast`. Re-record with `bash scripts/record-local-demos.sh`.
 
 ## License
 

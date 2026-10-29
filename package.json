@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "test": "python3 tests/test_round19.py"
+    "test": "python3 tests/test_round20.py"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0"

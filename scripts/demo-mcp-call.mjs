@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 /**
  * Minimal stdio MCP client for demos.
- * Spawns the local open-data-mcp proxy and calls one tool.
- * Never prints APIFY_TOKEN or Authorization headers.
+ * Spawns the local open-data-mcp server and calls one tool.
+ * Never prints secret env values.
  *
  * Usage: node scripts/demo-mcp-call.mjs <toolName> '<json-args>'
- * Example: node scripts/demo-mcp-call.mjs dataandbeyond--eu-company-verify '{"queries":["Novo Nordisk A/S"]}'
  */
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -17,21 +16,16 @@ const toolName = process.argv[2];
 const argsJson = process.argv[3] || '{}';
 
 if (!toolName) {
-  console.error('Usage: demo-mcp-call.mjs <toolName> \'<json-args>\'');
+  console.error("Usage: demo-mcp-call.mjs <toolName> '<json-args>'");
   process.exit(2);
 }
 
 let args;
 try {
   args = JSON.parse(argsJson);
-} catch (e) {
+} catch {
   console.error('Invalid JSON args');
   process.exit(2);
-}
-
-if (!process.env.APIFY_TOKEN) {
-  console.error('APIFY_TOKEN env var is required (value not shown)');
-  process.exit(1);
 }
 
 const child = spawn('node', [join(ROOT, 'src/index.js')], {
@@ -46,8 +40,7 @@ const pending = new Map();
 
 function send(method, params) {
   const id = nextId++;
-  const msg = { jsonrpc: '2.0', id, method, params };
-  child.stdin.write(JSON.stringify(msg) + '\n');
+  child.stdin.write(JSON.stringify({ jsonrpc: '2.0', id, method, params }) + '\n');
   return new Promise((resolve, reject) => {
     pending.set(id, { resolve, reject });
     setTimeout(() => {
@@ -91,7 +84,6 @@ function summarize(tool, result) {
   try {
     data = JSON.parse(texts);
   } catch {
-    // Apify MCP sometimes appends prose after the JSON object
     data = null;
     const start = texts.indexOf('{');
     if (start >= 0) {
@@ -101,47 +93,38 @@ function summarize(tool, result) {
         else if (texts[i] === '}') {
           depth--;
           if (depth === 0) {
-            try { data = JSON.parse(texts.slice(start, i + 1)); } catch { data = null; }
+            try {
+              data = JSON.parse(texts.slice(start, i + 1));
+            } catch {
+              data = null;
+            }
             break;
           }
         }
       }
     }
-    if (!data) {
-      const m = texts.match(/"runId"\s*:\s*"([^"]+)"/);
-      const s = texts.match(/"status"\s*:\s*"([^"]+)"/);
-      const d = texts.match(/"id"\s*:\s*"([^"]+)"[^}]*"itemCount"\s*:\s*(\d+)/);
-      if (m) data = { runId: m[1], status: s ? s[1] : undefined, storages: d ? { datasets: { default: { id: d[1], itemCount: Number(d[2]) } } } : undefined };
-    }
   }
-  let items = Array.isArray(data) ? data : data?.items;
+  const items = Array.isArray(data) ? data : data?.items;
   console.log(`MCP tool: ${tool}`);
   console.log(`isError: ${Boolean(result?.isError)}`);
-  if (data && data.runId) {
-    console.log(`runId: ${data.runId}`);
-    console.log(`status: ${data.status}  exitCode: ${data.exitCode}`);
-    const ds = data.storages?.datasets?.default;
-    if (ds) console.log(`datasetId: ${ds.id}  itemCount: ${ds.itemCount}`);
-    if (data.summary) console.log(`summary: ${data.summary}`);
-  }
   if (Array.isArray(items) && items.length) {
     console.log(`items: ${items.length}`);
     for (const it of items.slice(0, 3)) {
-      if (it.lei?.legalName || it.query) {
+      if (it.vin || it.make) {
+        const recalls = Array.isArray(it.recalls) ? it.recalls.length : it.recallCount ?? 0;
         console.log(
-          `- ${it.query || ''} → ${it.lei?.legalName || it.verdict || 'n/a'}` +
-            (it.lei?.lei ? ` (LEI ${it.lei.lei})` : '') +
-            (it.verdict ? ` [${it.verdict}]` : ''),
-        );
-      } else if (it.vin || it.make) {
-        console.log(
-          `- VIN ${it.vin}: ${it.make || '?'} ${it.model || ''} ${it.modelYear || ''}` +
-            (it.recalls ? ` | recalls: ${Array.isArray(it.recalls) ? it.recalls.length : it.recallCount ?? '?'}` : ''),
+          `- VIN ${it.vin}: ${it.make || '?'} ${it.model || ''} ${it.modelYear || ''} | recalls: ${recalls}`,
         );
       } else if (it.title) {
         console.log(
-          `- ${it.year || '?'} | cited ${it.citedByCount ?? '?'} | ${it.title}` +
-            (it.doi ? ` (DOI ${it.doi})` : ''),
+          `- ${it.year || '?'} | ${it.title}` + (it.doi ? ` (DOI ${it.doi})` : ''),
+        );
+      } else if (it.vat || it.lei || it.verdict) {
+        const name = it.vat?.name || it.lei?.legalName || it.verdict || 'n/a';
+        console.log(
+          `- ${it.query || ''} → ${name}` +
+            (it.vat?.valid != null ? ` [valid=${it.vat.valid}]` : '') +
+            (it.verdict ? ` [${it.verdict}]` : ''),
         );
       } else {
         console.log('-', JSON.stringify(it).slice(0, 200));
@@ -149,7 +132,7 @@ function summarize(tool, result) {
     }
     return;
   }
-  if (!data && texts) {
+  if (texts) {
     const preview = texts.length > 900 ? texts.slice(0, 900) + '\n… (truncated)' : texts;
     console.log(preview);
   }
@@ -160,21 +143,19 @@ function summarize(tool, result) {
     await send('initialize', {
       protocolVersion: '2024-11-05',
       capabilities: {},
-      clientInfo: { name: 'open-data-mcp-demo', version: '1.0.0' },
+      clientInfo: { name: 'open-data-mcp-demo', version: '1.1.0' },
     });
-    // notifications/initialized (no id)
     child.stdin.write(
       JSON.stringify({ jsonrpc: '2.0', method: 'notifications/initialized' }) + '\n',
     );
     const listed = await send('tools/list', {});
     const names = (listed?.tools || []).map((t) => t.name);
-    console.log(`tools/list → ${names.length} tools (token not required)`);
+    console.log(`tools/list → ${names.length} tools (no API keys required)`);
     if (!names.includes(toolName)) {
       console.error(`Tool ${toolName} not in list`);
       process.exit(1);
     }
-    console.log(`Calling ${toolName} via stdio proxy → mcp.apify.com …`);
-    console.log(`(APIFY_TOKEN is set in env; value never printed)`);
+    console.log(`Calling ${toolName} via local stdio MCP (official APIs) …`);
     const result = await send('tools/call', { name: toolName, arguments: args });
     summarize(toolName, result);
     child.kill();

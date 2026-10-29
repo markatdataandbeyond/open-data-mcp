@@ -1,36 +1,23 @@
 {
-  "generatedAt": "2026-10-28T13:28:21Z",
+  "generatedAt": "2026-10-29T15:58:36Z",
+  "mode": "local-stdio",
   "actors": {
     "eu-company-verify": {
-      "direct": {
-        "actor": "eu-company-verify",
-        "itemCount": 1,
-        "highlights": [
-          {
-            "query": "Novo Nordisk A/S",
-            "legalName": "NOVO NORDISK A/S",
-            "lei": "549300DAQ1CVT6CXN342",
-            "verdict": "LEI_MATCH_BY_NAME"
-          }
-        ],
-        "runId": null
-      },
-      "mcpRunId": "h1ZZkQjXbJic0JJWh",
       "files": {
         "cast": {
           "path": "assets/demo/eu-company-verify.cast",
-          "bytes": 2192,
-          "sha256": "db86fc430ea7b446"
+          "bytes": 1100,
+          "sha256": "eb3115eebe12869c"
         },
         "gif": {
           "path": "assets/demo/eu-company-verify.gif",
-          "bytes": 223379,
-          "sha256": "bebd917844b5c03d"
+          "bytes": 27089,
+          "sha256": "750f83a0b2084a8b"
         },
         "png": {
           "path": "assets/demo/eu-company-verify.png",
-          "bytes": 77986,
-          "sha256": "10ebbdaa32ef1ceb"
+          "bytes": 33384,
+          "sha256": "0399ec662382a6c7"
         }
       },
       "rawGithub": {
@@ -40,36 +27,21 @@
       }
     },
     "vin-decoder-recalls": {
-      "direct": {
-        "actor": "vin-decoder-recalls",
-        "itemCount": 1,
-        "highlights": [
-          {
-            "vin": "1HGCM82633A004352",
-            "make": "HONDA",
-            "model": "Accord",
-            "modelYear": 2003,
-            "recallCount": 24
-          }
-        ],
-        "runId": null
-      },
-      "mcpRunId": "LqTMizQ8qjzcoF8bg",
       "files": {
         "cast": {
           "path": "assets/demo/vin-decoder-recalls.cast",
-          "bytes": 2171,
-          "sha256": "160790adbf6e96f3"
+          "bytes": 1113,
+          "sha256": "c567c165ec1dc1da"
         },
         "gif": {
           "path": "assets/demo/vin-decoder-recalls.gif",
-          "bytes": 219378,
-          "sha256": "59bcc6905151dc1b"
+          "bytes": 27561,
+          "sha256": "e63151ea5b698da2"
         },
         "png": {
           "path": "assets/demo/vin-decoder-recalls.png",
-          "bytes": 75355,
-          "sha256": "c05da16e9948d871"
+          "bytes": 32850,
+          "sha256": "c37e350c5fe43028"
         }
       },
       "rawGithub": {
@@ -79,50 +51,21 @@
       }
     },
     "scholar-search": {
-      "direct": {
-        "actor": "scholar-search",
-        "itemCount": 3,
-        "highlights": [
-          {
-            "title": "Knowledge Graph Embedding by Translating on Hyperplanes",
-            "year": 2014,
-            "doi": "10.1609/aaai.v28i1.8870",
-            "citedByCount": 3906,
-            "query": "knowledge graph embedding"
-          },
-          {
-            "title": "Knowledge Graph Embedding: A Survey of Approaches and Applications",
-            "year": 2017,
-            "doi": "10.1109/tkde.2017.2754499",
-            "citedByCount": 2626,
-            "query": "knowledge graph embedding"
-          },
-          {
-            "title": "Convolutional 2D Knowledge Graph Embeddings",
-            "year": 2018,
-            "doi": "10.1609/aaai.v32i1.11573",
-            "citedByCount": 2485,
-            "query": "knowledge graph embedding"
-          }
-        ],
-        "runId": null
-      },
-      "mcpRunId": "gKz8mS98cL0BeK8E7",
       "files": {
         "cast": {
           "path": "assets/demo/scholar-search.cast",
-          "bytes": 2546,
-          "sha256": "5d159ac336f227ac"
+          "bytes": 1330,
+          "sha256": "efbc5379fda4d15a"
         },
         "gif": {
           "path": "assets/demo/scholar-search.gif",
-          "bytes": 243870,
-          "sha256": "a12d870d2c6478ba"
+          "bytes": 35259,
+          "sha256": "f7fb467ebbba9e4f"
         },
         "png": {
           "path": "assets/demo/scholar-search.png",
-          "bytes": 78479,
-          "sha256": "3e47d1ba9c75e5cb"
+          "bytes": 44678,
+          "sha256": "70b3876235e9e1b2"
         }
       },
       "rawGithub": {
