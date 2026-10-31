@@ -10,6 +10,15 @@ Optional env keys (never commit them):
 - `OPENALEX_API_KEY` — enables OpenAlex in scholar-search (free key from openalex.org)
 - `NCBI_API_KEY` — higher PubMed rate limits (free from NCBI)
 
+## Try in 30 seconds
+
+```bash
+npm ci
+node scripts/demo-mcp-call.mjs dataandbeyond--eu-company-verify '{"queries":["DK24256790"]}'
+```
+
+Live output (2026-10-31, Europe/Copenhagen): `DK24256790 → NOVO NORDISK A/S`, VIES `valid=true`, LEI `549300DAQ1CVT6CXN342`. No API key required for this call.
+
 ## Tools
 
 | Tool | Official source |
